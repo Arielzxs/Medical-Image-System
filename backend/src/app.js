@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 
 // Load env
 require('fs').existsSync(path.join(__dirname, '../.env')) && require('fs').readFileSync(path.join(__dirname, '../.env'), 'utf8').split('\n').forEach(line => {
@@ -14,6 +15,31 @@ require('./initDb');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Rate limiting
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { code: 429, message: '请求过于频繁，请稍后再试' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { code: 429, message: '登录请求过于频繁，请稍后再试' }
+});
+
+const uploadLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { code: 429, message: '上传请求过于频繁，请稍后再试' }
+});
+
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -26,10 +52,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/patients', require('./routes/patients'));
-app.use('/api/examinations', require('./routes/examinations'));
-app.use('/api/images', require('./routes/images'));
+app.use('/api/auth', authLimiter, require('./routes/auth'));
+app.use('/api/patients', generalLimiter, require('./routes/patients'));
+app.use('/api/examinations', generalLimiter, require('./routes/examinations'));
+app.use('/api/images', uploadLimiter, require('./routes/images'));
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -40,7 +66,7 @@ app.get('/api/health', (req, res) => {
 const distPath = path.join(__dirname, '../../frontend/dist');
 if (require('fs').existsSync(distPath)) {
   app.use(express.static(distPath));
-  app.get('*', (req, res, next) => {
+  app.get('*', generalLimiter, (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
     res.sendFile(path.join(distPath, 'index.html'));
   });
