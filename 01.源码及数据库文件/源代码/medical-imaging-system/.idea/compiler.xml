@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="imms-dal" />
+        <module name="imms-boot-harmony" />
+        <module name="imms-service" />
+        <module name="imms-common" />
+        <module name="imms-api" />
+        <module name="imms-boot-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="imms-boot" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="imms-api" options="-parameters" />
+      <module name="imms-boot" options="-parameters" />
+      <module name="imms-boot-harmony" options="-parameters" />
+      <module name="imms-boot-web" options="-parameters" />
+      <module name="imms-common" options="-parameters" />
+      <module name="imms-dal" options="-parameters" />
+      <module name="imms-service" options="-parameters" />
+    </option>
+  </component>
+</project>

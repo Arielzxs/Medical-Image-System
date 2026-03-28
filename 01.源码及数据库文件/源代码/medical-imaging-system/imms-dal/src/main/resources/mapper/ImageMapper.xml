@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjetc.mapper.ImageMapper">
+    <resultMap id="ImageResultMap" type="com.tjetc.entity.Image">
+        <id property="id" column="id"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="modality" column="modality"/>
+        <result property="filePath" column="file_path"/>
+        <result property="tags" column="tags"/>
+        <result property="uploadedBy" column="uploaded_by"/>
+        <result property="uploadedAt" column="uploaded_at"/>
+        <result property="patientName" column="patientName"/>
+        <result property="uploadedName" column="uploadedName"/>
+    </resultMap>
+
+    <select id="searchByPatientName" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+                 join user u_patient on i.patient_id = u_patient.id
+                 join user u_uploader on i.uploaded_by = u_uploader.id
+        where u_patient.username like concat('%', #{PatientName}, '%')
+    </select>
+
+    <select id="searchByUploadedName" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+                 join user u_patient on i.patient_id = u_patient.id
+                 join user u_uploader on i.uploaded_by = u_uploader.id
+        where u_uploader.username like concat('%', #{UploadedName}, '%')
+    </select>
+
+    <select id="searchByPatientIdCard" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+                 join user u_patient on i.patient_id = u_patient.id
+                 join user u_uploader on i.uploaded_by = u_uploader.id
+        where u_patient.id_card like concat('%', #{IdCard}, '%')
+    </select>
+
+    <select id="searchByDateRange" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+        join user u_patient on i.patient_id = u_patient.id
+        join user u_uploader on i.uploaded_by = u_uploader.id
+        <where>
+            <if test="startDate != null">
+                and i.uploaded_at >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                and i.uploaded_at &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchByPatientId" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+                 join user u_patient on i.patient_id = u_patient.id
+                 join user u_uploader on i.uploaded_by = u_uploader.id
+        where i.patient_id = #{patientId}
+    </select>
+
+    <select id="search" resultMap="ImageResultMap">
+        select i.*, u_patient.username as patientName, u_uploader.username as uploadedName
+        from image i
+        join user u_patient on i.patient_id = u_patient.id
+        join user u_uploader on i.uploaded_by = u_uploader.id
+        <where>
+            <if test="patientName != null and patientName != ''">
+                and u_patient.username like concat('%', #{patientName}, '%')
+            </if>
+            <if test="patientIdCard != null and patientIdCard != ''">
+                and u_patient.id_card like concat('%', #{patientIdCard}, '%')
+            </if>
+            <if test="modality != null and modality != ''">
+                and i.modality like concat('%', #{modality}, '%')
+            </if>
+            <if test="tags != null and tags != ''">
+                and i.tags like concat('%', #{tags}, '%')
+            </if>
+            <if test="startDate != null">
+                and i.uploaded_at >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                and i.uploaded_at &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+</mapper>

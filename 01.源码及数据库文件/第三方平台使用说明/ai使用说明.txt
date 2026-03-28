@@ -1,0 +1,12 @@
+Ai 使用教程：
+
+
+获取Gemini API密钥：
+
+从https://ai.google.dev/官网获取Gemini API的密钥
+
+具体过程：
+
+点击Get API key后，右上角有创建API密钥，创建后，在下方就会显示一个项目，并可以看到一个API密钥。
+
+将API密钥添加到application.yaml配置文件中

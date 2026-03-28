@@ -1,0 +1,63 @@
+server:
+  port: 8081
+#配置数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/medical_imaging_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Ariel830
+#    servlet:
+#      # 8081 的连接器默认 contextPath=""，我们用拦截器区分，或单独应用。这里采用路径前缀方案：
+#      context-path: /api/web
+  servlet:
+    multipart:
+      #配置请求上传文件最大值
+      max-file-size: 1024MB
+      #配置请求体数据最大值
+      max-request-size: 2048MB
+  web:
+    resources:
+      static-locations:
+        #保留springboot默认配置，自定义配置
+        - classpath:/META-INF/resources/
+        - classpath:/resources/
+        - classpath:/static/
+        - classpath:/public/
+        - file:/Users/zhangxiangshuo/Desktop/Ariel/medical_image
+#用来存储文件
+imms:
+  storage:
+    root: ./data
+#mybatis-plus配置
+mybatis-plus:
+  #classpath*中的星号表示可以扫描jar包下的类路径的文件内容
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #别名
+  type-aliases-package: com.tjetc.entity
+  configuration:
+    #输出日志信息（sql和查询的数据）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  global-config:
+    db-config:
+      id-type: auto
+#设置日志输出级别
+logging:
+  level:
+    #设置指定包下所有的类的日志输出级别（trace debug info warn error）
+    com.tjetc: info
+  file:
+    name: /Users/zhangxiangshuo/Desktop/code/log/imageSystem.log
+#生成token过期时间
+jwt:
+  token:
+    expired: 36000000 # token过期时间，单位毫秒
+
+#配置上传文件basePath路径
+file:
+  basePath: /Users/zhangxiangshuo/Desktop/Ariel/medical_image
+
+gemini:
+  api:
+    key: "AIzaSyCj729iboHk2LzXCf_DRMmZmBv6WTGG1mI"

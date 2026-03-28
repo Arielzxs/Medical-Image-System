@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "background_background",
+      "value": "#f1f3f5"
+    },
+    {
+      "name": "brand",
+      "value": "#007DFF"
+    }
+  ]
+}

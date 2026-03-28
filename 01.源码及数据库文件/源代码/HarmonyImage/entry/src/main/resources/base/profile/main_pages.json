@@ -1,0 +1,22 @@
+{
+  "src": [
+    "pages/IndexPage",
+    "pages/LoginPage",
+    "pages/ImageUploadPage",
+    "pages/MyImagesPage",
+    "pages/ImageSearchPage",
+    "pages/UserManagementPage",
+    "pages/AddUserPage",
+    "pages/EditUserPage",
+    "pages/CreateReportPage",
+    "pages/ReportQueryPage",
+    "pages/MyReportsPage",
+    "pages/OperationLogPage",
+    "pages/RegisterPage",
+    "pages/MainPage",
+    "pages/StaffAppointmentPage",
+    "pages/CreateAppointmentPage",
+    "pages/MyAppointmentsPage",
+    "pages/MessagePage"
+  ]
+}
