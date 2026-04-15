@@ -56,14 +56,15 @@ router.beforeEach((to, from, next) => {
     <el-container v-if="dataInfo.showMenu" class="container">
       <el-aside class="aside">
         <div class="head">
-          <div>
+          <div class="brand">
+            <span class="brand-icon">🏥</span>
             <span class="app-title">医疗影像系统</span>
           </div>
         </div>
         <el-menu
-          background-color="#304156"
-          text-color="#bfcbd9"
-          active-text-color="#409EFF"
+          background-color="transparent"
+          text-color="#a8b5c8"
+          active-text-color="#ffffff"
           :router="true"
           :default-openeds="dataInfo.defaultOpen"
           :default-active="dataInfo.currentPath"
@@ -210,7 +211,7 @@ router.beforeEach((to, from, next) => {
 <style scoped>
 .layout {
   min-height: 100vh;
-  background-color: #f7f9fc; /* 更柔和的背景色 */
+  background-color: #f0f4f8;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", Arial, sans-serif;
 }
@@ -218,31 +219,45 @@ router.beforeEach((to, from, next) => {
   height: 100vh;
 }
 .aside {
-  width: 220px !important;
-  background-color: #2c3e50; /* 更深邃的侧边栏颜色 */
-  box-shadow: 2px 0 8px rgba(0, 21, 41, 0.1);
+  width: 240px !important;
+  background: linear-gradient(180deg, #1a2b45 0%, #243450 60%, #1e3a5f 100%);
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
   transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 .head {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 64px; /* 增加高度 */
-  padding: 0 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: 70px;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 .app-title {
-  font-size: 24px;
-  color: #ecf0f1;
-  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
   white-space: nowrap;
+  letter-spacing: 0.5px;
 }
 .content {
   display: flex;
   flex-direction: column;
   max-height: 100vh;
   overflow: hidden;
-  background-color: #f7f9fc;
+  background-color: #f0f4f8;
 }
 .main {
   flex: 1;
@@ -255,34 +270,75 @@ router.beforeEach((to, from, next) => {
 /* 全局 Element Plus 组件样式覆盖 */
 .el-menu {
   border-right: none !important;
+  background-color: transparent !important;
 }
 .el-sub-menu__title,
 .el-menu-item {
-  color: #bdc3c7 !important;
+  color: #a8b5c8 !important;
   font-weight: 500;
+  font-size: 14px;
+  height: 46px !important;
+  line-height: 46px !important;
+  border-radius: 0 !important;
+  transition: all 0.25s ease !important;
+}
+.el-sub-menu__title {
+  height: 46px !important;
+  line-height: 46px !important;
 }
 .el-menu-item.is-active {
-  background-color: #3498db !important;
-  color: #fff !important;
-  border-right: 3px solid #5dade2;
+  background: rgba(64, 158, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-left: 3px solid #409eff !important;
+  padding-left: 17px !important;
 }
 .el-sub-menu__title:hover,
 .el-menu-item:hover {
-  background-color: #34495e !important;
-  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+.el-sub-menu__title .el-icon,
+.el-menu-item .el-icon {
+  color: inherit !important;
 }
 .el-button {
-  border-radius: 6px !important; /* 更圆润的按钮 */
+  border-radius: 8px !important;
+  font-weight: 500;
+}
+.el-button--primary {
+  background-color: #1890ff !important;
+  border-color: #1890ff !important;
+}
+.el-button--primary:hover {
+  background-color: #40a9ff !important;
+  border-color: #40a9ff !important;
 }
 .el-card {
-  border: 1px solid #e6e9ed;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+  margin-bottom: 20px;
+}
+.el-card__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a2b45;
 }
 .el-table th.el-table__cell {
-  background-color: #f8f9fa !important;
-  color: #343a40;
+  background-color: #f8fafc !important;
+  color: #4a5568;
   font-weight: 600;
+  font-size: 13px;
+}
+.el-table .el-table__row {
+  font-size: 13px;
+}
+.el-tag {
+  border-radius: 6px !important;
+}
+.el-input__wrapper {
+  border-radius: 8px !important;
 }
 </style>
