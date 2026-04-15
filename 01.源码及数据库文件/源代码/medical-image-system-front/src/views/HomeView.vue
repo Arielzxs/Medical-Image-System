@@ -46,11 +46,12 @@ const stats = reactive({
 
 const activities = ref([]);
 
-// Mock data for chart visualization
+// Mock data for chart visualization (TODO: replace with real API data when backend endpoint is available)
 const weeklyData = ref([65, 78, 55, 82, 70, 90, 75]);
 const weekDays = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 const maxWeeklyVal = computed(() => Math.max(...weeklyData.value));
 
+// TODO: replace with real API data when imaging demand endpoint is available
 const imagingTypes = ref([
   { name: "CT扫描", count: 142, color: "#1890ff", percent: 71 },
   { name: "X光", count: 98, color: "#52c41a", percent: 49 },
@@ -197,7 +198,7 @@ onMounted(async () => {
                 <div class="bar-value">{{ val }}</div>
                 <div
                   class="bar"
-                  :style="{ height: (val / maxWeeklyVal * 140) + 'px' }"
+                  :style="{ height: ((val / maxWeeklyVal) * 140) + 'px' }"
                 ></div>
                 <div class="bar-label">{{ weekDays[idx] }}</div>
               </div>

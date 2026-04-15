@@ -12,13 +12,13 @@
     <div class="center">
       <div class="search-bar">
         <el-icon class="search-icon"><Search /></el-icon>
-        <input type="text" placeholder="搜索..." class="search-input" />
+        <input type="text" placeholder="搜索..." class="search-input" aria-label="搜索系统内容" />
       </div>
     </div>
     <div class="right-controls">
       <el-popover placement="bottom" :width="340" trigger="click">
         <template #reference>
-          <div class="action-item" title="通知">
+          <div class="action-item" title="通知" role="button" tabindex="0">
             <el-badge
               :value="unreadCount"
               :hidden="unreadCount === 0"
